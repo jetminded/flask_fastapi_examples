@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DnD Flask App</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { margin: 5px; padding: 10px; }
+        #output { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>DnD Demo</h1>
+
+    <button onclick="getCharacter()">Get Character</button>
+    <button onclick="rollDice()">Roll d20</button>
+    <button onclick="dealDamage()">Take 5 Damage</button>
+
+    <div id="output"></div>
+
+    <script>
+        async function getCharacter() {
+            const res = await fetch('/character');
+            const data = await res.json();
+            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function rollDice() {
+            const res = await fetch('/roll?sides=20');
+            const data = await res.json();
+            document.getElementById('output').innerText = 'Rolled: ' + data.roll;
+        }
+
+        async function dealDamage() {
+            const res = await fetch('/damage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ damage: 5 })
+            });
+            const data = await res.json();
+            document.getElementById('output').innerText = 'HP left: ' + data.hp;
+        }
+    </script>
+</body>
+</html>
