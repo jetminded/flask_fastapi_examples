@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dnd-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dnd-app
+  template:
+    metadata:
+      labels:
+        app: dnd-app
+    spec:
+      containers:
+      - name: dnd-app
+        image: dnd-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
