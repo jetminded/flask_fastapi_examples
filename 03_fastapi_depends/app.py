@@ -30,8 +30,8 @@ class CommonQueryParams:
         self.q = q
         self.limit = limit
 
-@app.get("/search/")
-def search(params: CommonQueryParams = Depends()):
+@app.get("/search/") # path param тут
+def search(params: CommonQueryParams = Depends()): # query param тут
     return {
         "query": params.q,
         "limit": params.limit
