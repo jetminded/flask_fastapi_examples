@@ -1,0 +1,17 @@
+[Unit]
+Description=FastAPI Service
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/home/youruser/fastapi-app
+ExecStart=/usr/bin/python3 -m uvicorn main:app --host 0.0.0.0 --port 8000
+
+Restart=always
+RestartSec=5
+
+Environment="PATH=/home/youruser/fastapi-app/venv/bin:/usr/bin"
+
+[Install]
+WantedBy=multi-user.target
